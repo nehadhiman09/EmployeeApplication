@@ -1,9 +1,8 @@
 package com.example.Employee_Crud_Application.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.boot.autoconfigure.web.WebProperties;
 
 @Entity
@@ -12,15 +11,34 @@ public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @NotBlank(message = "First name is mandtory")
     private String first_name;
+
+    @NotBlank(message = "Last name is mandtory")
     private String last_name;
+
+    @Email(message = "Email should be valid")
+    @NotBlank(message = "Email is mandtory")
     private String email;
+
+    @NotBlank(message = "Password is mandtory")
     private String password;
 
-    public Employee()
-    {
+    @ManyToOne
+    private Department department;
+
+    public Employee() {
     }
 
+    public Employee(long id, String first_name, String last_name, String email, String password, Department department) {
+        this.id = id;
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.email = email;
+        this.password = password;
+        this.department = department;
+    }
 
     public long getId() {
         return id;
@@ -60,5 +78,25 @@ public class Employee {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", first_name='" + first_name + '\'' +
+                ", last_name='" + last_name + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", department=" + department +
+                '}';
     }
 }
