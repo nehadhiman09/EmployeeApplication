@@ -21,8 +21,9 @@ public class DepartmentController {
     }
 
     // Create or update a department
-    @PostMapping
+    @PostMapping("/create")
     public Department createOrUpdateDepartment(@RequestBody Department department) {
+
         return departmentService.createorupdate(department);
     }
 }

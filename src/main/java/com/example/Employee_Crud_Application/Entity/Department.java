@@ -1,6 +1,7 @@
 package com.example.Employee_Crud_Application.Entity;
 
 import jakarta.persistence.*;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import java.util.List;
 
@@ -10,21 +11,13 @@ public class Department {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotEmpty(message = "Department name is required")
     private String name;
 
     // One department can have many employees
-    @OneToMany(mappedBy = "department")
+    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Employee> employees;
 
-    public Department()
-    {
-
-    }
-
-    public Department(Long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
 
     public Long getId() {
         return id;

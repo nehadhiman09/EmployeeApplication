@@ -18,6 +18,7 @@ public class Employee {
     @NotBlank(message = "Last name is mandtory")
     private String last_name;
 
+    @Column(unique = true)
     @Email(message = "Email should be valid")
     @NotBlank(message = "Email is mandtory")
     private String email;
@@ -26,6 +27,7 @@ public class Employee {
     private String password;
 
     @ManyToOne
+    @JoinColumn(name= "department_id")
     private Department department;
 
     public Employee() {

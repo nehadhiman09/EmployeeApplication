@@ -41,9 +41,42 @@ public class EmployeeService {
 
     public boolean authenticateUser(LoginRequest loginRequest) {
         Employee employee = employeeRepository.findByEmail(loginRequest.getEmail());
+        // If employee doesn't exist or the password doesn't match, return false
         return employee != null && passwordEncoder.matches(loginRequest.getPassword(), employee.getPassword());
     }
+
+
+    // Fetch all employees
+    public List<Employee> getAllEmployees() {
+        return employeeRepository.findAll();
+    }
+
+    // Fetch employee by ID
+    public Optional<Employee> getEmployeeById(Long id) {
+        return employeeRepository.findById(id);
+    }
+
+    // Update an existing employee
+    public Employee updateEmployee(Long id, Employee employee) {
+        // Check if the employee exists in the database
+        if (employeeRepository.existsById(id)) {
+            employee.setId(id);
+            return employeeRepository.save(employee);
+        }
+        throw new RuntimeException("Employee not found with id: " + id);
+    }
+
+    // Delete an employee by ID
+    public void deleteEmployee(Long id) {
+        // Check if the employee exists before deleting
+        if (employeeRepository.existsById(id)) {
+            employeeRepository.deleteById(id);
+        } else {
+            throw new RuntimeException("Employee not found with id: " + id);
+        }
+    }
 }
+
 
     //create a employee
 //    public Employee createemployee(Employee employee)
