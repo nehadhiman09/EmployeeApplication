@@ -3,7 +3,7 @@ spring:
     name: Employee_Crud_Application
 
   datasource:
-    url: jdbc:mysql://localhost:3306/employee
+    url: jdbc:mysql://localhost:3306/employee_crud
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -16,5 +16,23 @@ spring:
       ddl-auto: update
     show-sql: true
 
-  autoconfigure:
-    exclude: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+#  autoconfigure:
+#    exclude: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+
+    logging:
+      level:
+        org:
+          springframework:
+            security=DEBUG:
+#
+#app:
+#  jwt-secret: your-jwt-secret-value
+
+springdoc:
+  api-docs:
+    path=/api-docs:
+
+      springdoc:
+        swagger-ui:
+          path=/swagger-ui:
+            html:
